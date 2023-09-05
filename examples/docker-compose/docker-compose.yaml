@@ -6,9 +6,13 @@ services:
     expose:
       - "5432"
     environment:
-      - POSTGRES_PASSWORD=your-database-password
+      - POSTGRES_DB=${HUB_DB_NAME}
+      - POSTGRES_USER=${HUB_DB_USERNAME}
+      - POSTGRES_PASSWORD=${HUB_DB_PASSWORD}
     networks:
       - main
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     restart: on-failure
   
   nginx:
@@ -50,6 +54,8 @@ services:
 
 volumes:
   static:
+  postgres_data:
+    external: true
 
 networks:
   main:
