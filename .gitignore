@@ -48,3 +48,8 @@ Thumbs.db
 *.mov
 *.wmv
 
+# static files
+static/
+
+# database files
+postgres-data/
