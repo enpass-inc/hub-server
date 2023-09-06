@@ -12,8 +12,11 @@ services:
     networks:
       - main
     volumes:
+      # postgres data persistentance in extra volume
       - postgres_data:/var/lib/postgresql/data
-      # - ./postgres-data:/var/lib/postgresql/data
+
+      # optionally, persist postgres data on local folder on host system
+      # - ./postgres_data:/var/lib/postgresql/data
     restart: on-failure
   
   nginx:
@@ -26,8 +29,9 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       #- ./nginx/path-to-certs:/etc/nginx/your.domain.tld #HTTPS
-      - static:/static
-      # - ./static:/static
+
+      - static:/static #from shared volume
+      # - ./static:/static  #from local folder on host
 
     networks:
       - main
@@ -48,7 +52,10 @@ services:
     expose:
       - "8000"
     volumes:
+      # copy static files to shared volume
       - static:/usr/src/app/static/
+
+      # optionally, copy static files to local folder on host
       # - ./static:/usr/src/app/static/
     hostname: app
     networks:
@@ -57,7 +64,7 @@ services:
 
 volumes:
   static:
-  postgres_data:
+  postgres_data: 
     external: true
   
 networks:
