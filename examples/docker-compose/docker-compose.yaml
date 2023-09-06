@@ -12,7 +12,8 @@ services:
     networks:
       - main
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+      # - ./postgres-data:/var/lib/postgresql/data
     restart: on-failure
   
   nginx:
@@ -25,7 +26,8 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       #- ./nginx/path-to-certs:/etc/nginx/your.domain.tld #HTTPS
-      - ./static:/static
+      - static:/static
+      # - ./static:/static
 
     networks:
       - main
@@ -46,11 +48,17 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./static:/usr/src/app/static/
+      - static:/usr/src/app/static/
+      # - ./static:/usr/src/app/static/
     hostname: app
     networks:
       - main
     restart: on-failure
 
+volumes:
+  static:
+  postgres_data:
+    external: true
+  
 networks:
   main:
