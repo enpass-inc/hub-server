@@ -52,4 +52,4 @@ Thumbs.db
 static/
 
 # database files
-postgres-data/
+postgres_data/
