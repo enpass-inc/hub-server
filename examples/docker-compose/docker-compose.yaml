@@ -47,7 +47,7 @@ services:
 
   app:
     image: public.ecr.aws/enpass/hub-server:latest
-    command: sh -c "wait-for db:5432 -- entrypoint.sh"
+    command: ["sh", "-c", "nc -z db 5432 && entrypoint.sh"]
     env_file: .env
     environment:
       - HUB_SECRET_KEY_FILE=/run/secrets/hub_secret_key
