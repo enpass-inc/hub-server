@@ -53,3 +53,10 @@ static/
 
 # database files
 postgres_data/
+
+# docker secrets
+hub_secret_key.txt
+hub_db_password.txt
+email_host.txt
+email_host_user.txt
+email_host_password.txt
