@@ -9,10 +9,11 @@ Clone the repository: ``` git clone https://github.com/enpass-inc/hub-server ```
 1. Navigate to the examples/docker-compose directory.
 2. Customize the ``` .env ``` and ``` docker-compose.yml ``` files to suit your application's needs. Update
 the services, ports, volumes, environment variables, etc.
-3. Modify the ``` nginx/nginx.conf ``` file to define the reverse proxy rules if required. 
-4. To persist the database, create an extra volume with the command: ``` docker volume create --name=postgres_data ```
-5. Run the Docker Compose command to start the application: ``` docker-compose up -d ```
-6. Access your application through the ``` http://yourdomain.tld/authorise/create/admin/first/ ```
+3. Enpass Hub supports docker compose secrets. Use environment variables with  ```_FILE``` suffix.
+4. Modify the ``` nginx/nginx.conf ``` file to define the reverse proxy rules if required. 
+5. To persist the database, create an extra volume with the command: ``` docker volume create --name=postgres_data ```
+6. Run the Docker Compose command to start the application: ``` docker-compose up -d ```
+7. Access your application through the ``` http://yourdomain.tld/authorise/create/admin/first/ ```
 
 ## Options ##
 

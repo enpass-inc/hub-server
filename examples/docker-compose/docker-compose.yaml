@@ -52,9 +52,7 @@ services:
     environment:
       - HUB_SECRET_KEY_FILE=/run/secrets/hub_secret_key
       - HUB_DB_PASSWORD_FILE=/run/secrets/hub_db_password
-      - EMAIL_HOST_FILE=/run/secrets/email_host
       - EMAIL_HOST_PASSWORD_FILE=/run/secrets/email_host_password
-      - EMAIL_HOST_USER_FILE=/run/secrets/email_host_user
 
     depends_on:
       - db
@@ -74,9 +72,7 @@ services:
     secrets:
       - hub_db_password
       - hub_secret_key
-      - email_host
       - email_host_password
-      - email_host_user
     
     restart: on-failure
 
@@ -93,9 +89,5 @@ secrets:
     file: hub_db_password.txt
   hub_secret_key:
     file: hub_secret_key.txt
-  email_host:
-    file: email_host.txt
   email_host_password:
     file: email_host_password.txt
-  email_host_user:
-    file: email_host_user.txt
