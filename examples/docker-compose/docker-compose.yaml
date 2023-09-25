@@ -8,7 +8,7 @@ services:
     environment:
       - POSTGRES_DB=${HUB_DB_NAME}
       - POSTGRES_USER=${HUB_DB_USERNAME}
-      - POSTGRES_PASSWORD=${HUB_DB_PASSWORD}
+      - POSTGRES_PASSWORD_FILE=/run/secrets/hub_db_password
     networks:
       - main
     volumes:
@@ -17,10 +17,14 @@ services:
 
       # optionally, persist postgres data on local folder on host system
       # - ./postgres_data:/var/lib/postgresql/data
+    
+    secrets:
+      - hub_db_password
+    
     restart: on-failure
   
   nginx:
-    build: ./nginx
+    image: nginx:latest
     ports:
       - "80:80"
       #- "443:443" #HTTPS
@@ -43,8 +47,12 @@ services:
 
   app:
     image: public.ecr.aws/enpass/hub-server:latest
-    command: sh -c "wait-for db:5432 -- entrypoint.sh"
+    command: ["sh", "-c", "nc -z db 5432 && entrypoint.sh"]
     env_file: .env
+    environment:
+      - HUB_SECRET_KEY_FILE=/run/secrets/hub_secret_key
+      - HUB_DB_PASSWORD_FILE=/run/secrets/hub_db_password
+      - EMAIL_HOST_PASSWORD_FILE=/run/secrets/email_host_password
 
     depends_on:
       - db
@@ -60,6 +68,12 @@ services:
     hostname: app
     networks:
       - main
+    
+    secrets:
+      - hub_db_password
+      - hub_secret_key
+      - email_host_password
+    
     restart: on-failure
 
 volumes:
@@ -69,3 +83,11 @@ volumes:
   
 networks:
   main:
+
+secrets:
+  hub_db_password:
+    file: hub_db_password.txt
+  hub_secret_key:
+    file: hub_secret_key.txt
+  email_host_password:
+    file: email_host_password.txt
