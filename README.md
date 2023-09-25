@@ -9,7 +9,7 @@ Clone the repository: ``` git clone https://github.com/enpass-inc/hub-server ```
 1. Navigate to the examples/docker-compose directory.
 2. Customize the ``` .env ``` and ``` docker-compose.yml ``` files to suit your application's needs. Update
 the services, ports, volumes, environment variables, etc.
-3. Enpass Hub supports docker compose secrets. Use environment variables with  ```_FILE``` suffix. This example use these secrets:
+3. Enpass Hub supports docker secrets. This example use docker secrets for following:
 - A randomly generated key used for cryptographic signing, typically for session cookies. Run following command to generate one into appropriate file:
 ``` tr -dc '[A-Za-z0-9!"#$%&(){}*+,-./:;<=>?@^_`~|]' < /dev/urandom | head -c 50 > hub_secret_key.txt ```
 - Create a file ```hub_db_password.txt``` and store Enpass Hub PostgreSQL password in it.
