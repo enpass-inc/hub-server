@@ -18,7 +18,7 @@ the services, ports, volumes, environment variables, etc.
 4. Modify the ``` nginx/nginx.conf ``` file to define the reverse proxy rules if required. 
 5. To persist the database, create an extra volume with the command: ``` docker volume create --name=postgres_data ```
 6. Run the Docker Compose command to start the application: ``` docker-compose up -d ```
-7. Access your application through the ``` http://yourdomain.tld/authorise/create/admin/first/ ```
+7. Access your application through the ``` https://your-domain.com/ ``` which should render an email test page in your browser. Once there, you can test your email and redis configurations by sending test email.
 
 ## Options ##
 
